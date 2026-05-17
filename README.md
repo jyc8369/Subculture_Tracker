@@ -1,12 +1,21 @@
-<img width="360" height="240" alt="스크린샷 2026-05-16 124719" src="https://github.com/user-attachments/assets/2e231806-f9e3-4a30-b9ab-19ab44a6115c" /> <img width="360" height="240" alt="video" src="https://github.com/user-attachments/assets/4239b65d-f730-4f8c-962b-e3d958849ed7" />
-
-
 # Subculture Tracker
+<picture>
+ <source media="(prefers-color-scheme: dark)" 
+  srcset="demo/source/앱_아이콘검정색.webp"
+  width="120">
+ <source media="(prefers-color-scheme: light)" 
+  srcset="demo/source/앱_아이콘검정색.webp"
+  width="120">
+ <img alt="YOUR-ALT-TEXT" src="YOUR-DEFAULT-IMAGE">
+</picture>
+
 게임을 플레이하면 가챠 결과를 자동으로 불러와 저장하며, 사용자는 프로그램 안에서 바로 기록을 확인할 수 있습니다.
 복잡한 설정이나 수동 입력 없이 실행만 하면 바로 사용할 수 있도록 제작되었습니다. 
 - 자동으로 원본 데이터를 추출하고, 공통 JSON 형식으로 저장
 - 웹 기반 인터페이스를 데스크톱 창에서 바로 실행
 - 게임을 킬 필요 없이 간편하게 기록을 불러오고 관리
+
+<img width="240" height="180" src="demo/source/앱_메인페이지.png" /> <img width="240" height="180" src="demo/source/앱_시현.gif" />
 
 ## 설치 및 사용법
 
@@ -19,7 +28,7 @@ subculture_tracker_X.X.X.zip
 ```
 
 3. 다운로드한 압축 파일을 해제한 뒤,  
-`run.exe` 또는 `run` 파일을 실행합니다.
+`SCT.exe` 또는 `SCT` 파일을 실행합니다.
 
 4. 조회할 게임을 실행한 뒤,  
 게임 내부에서 뽑기 기록 화면을 열어둡니다.
@@ -141,5 +150,8 @@ Github Issues에 제보해주시면 감사하겠습니다.
 
 아래 사항을 확인해주세요.
 - 뽑기 기록 화면을 열었는지
-- (일부게임에 해당)뽑기 기록 화면을 열고 나서 30분이 지났는지
+- 일반적인 경로에 게임을 설치하였는지
+
+대표적인 실패 원인
+- (일부게임에 해당)시간이 지나 URL 또는 토큰이 만료가 되었음 ([게임별 추가 정보](https://github.com/jyc8369/subculture_tracker/blob/main/game.md))
 </details>

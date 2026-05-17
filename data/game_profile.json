@@ -1,0 +1,17 @@
+{
+  "id": "string",
+  "banners": [
+    {
+      "bannerName": "string",
+      "items": [
+        {
+          "type": 1,
+          "seqId": "string",
+          "name": "string",
+          "rarity": "string",
+          "timestamp": 0
+        }
+      ]
+    }
+  ]
+}

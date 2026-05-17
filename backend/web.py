@@ -20,8 +20,8 @@ import backend.wuwa as wuwa
 # Flask 앱 초기화
 # ------------------------------------------------------------------
 if getattr(sys, 'frozen', False):
-    BUNDLE_DIR = Path(sys._MEIPASS)
-    PROJECT_ROOT = Path(sys.argv[0]).resolve().parent
+    BUNDLE_DIR = Path(sys.executable).resolve().parent
+    PROJECT_ROOT = BUNDLE_DIR
 else:
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
     BUNDLE_DIR = PROJECT_ROOT

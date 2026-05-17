@@ -64,7 +64,7 @@ python run.py -dev
   - Flask 서버 시작 호출
 - `requirements.txt`
   - 프로젝트 의존성 목록
-- `app.spec`
+- `SCT.spec`
   - PyInstaller 빌드 설정
 - `build-exe.ps1`
   - PyInstaller를 사용해 실행 파일을 생성하는 스크립트
@@ -270,7 +270,7 @@ python run.py -dev
 
 ## 패키징
 
-- `build-exe.ps1`을 실행하면 `app.spec`을 이용해 PyInstaller 빌드가 수행됩니다.
+- `build-exe.ps1`을 실행하면 `SCT.spec`을 이용해 PyInstaller 빌드가 수행됩니다.
 - Windows 단일 실행 파일 생성 시, `run.py` 진입점을 그대로 번들링합니다.
 - 빌드 옵션
   - `-Clean`: 이전 빌드 결과 삭제 후 새로 빌드
@@ -280,7 +280,7 @@ python run.py -dev
 
 - `.gitignore`: Git 무시 목록
 - `.venv/`: 로컬 Python 가상환경
-- `app.spec`: PyInstaller 설정
+- `SCT.spec`: PyInstaller 설정
 - `backend/`: 실제 애플리케이션 로직
 - `data/`: 출력 JSON 파일 및 설정 저장 디렉터리
 - `demo/`: 개발/테스트용 샘플 자료

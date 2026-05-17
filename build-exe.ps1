@@ -49,10 +49,10 @@ if ($Clean) {
     Write-Host 'Cleaning previous build artifacts...'
     if (Test-Path .\build) { Remove-Item .\build -Recurse -Force }
     if (Test-Path .\dist) { Remove-Item .\dist -Recurse -Force }
-    if (Test-Path .\app.spec) { Write-Host 'Keep existing app.spec'; }
+    if (Test-Path .\SCT.spec) { Write-Host 'Keep existing SCT.spec'; }
 }
 
-$pyinstallerArgs = @('app.spec')
+$pyinstallerArgs = @('SCT.spec')
 if ($NoUpx) {
     $pyinstallerArgs += '--noupx'
 }
