@@ -2,10 +2,10 @@
 <picture>
  <source media="(prefers-color-scheme: dark)" 
   srcset="demo/source/앱_아이콘검정색.webp"
-  width="120">
+  height="240">
  <source media="(prefers-color-scheme: light)" 
   srcset="demo/source/앱_아이콘검정색.webp"
-  width="120">
+  height="240">
  <img alt="YOUR-ALT-TEXT" src="YOUR-DEFAULT-IMAGE">
 </picture>
 
