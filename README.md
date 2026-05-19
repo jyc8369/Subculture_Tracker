@@ -15,7 +15,7 @@
 - 웹 기반 인터페이스를 데스크톱 창에서 바로 실행
 - 게임을 킬 필요 없이 간편하게 기록을 불러오고 관리
 
-<img width="240" height="180" src="demo/source/앱_메인페이지.png" /> <img width="240" height="180" src="demo/source/앱_시현.gif" />
+<img height="180" src="demo/source/앱_메인페이지.png" /> <img height="180" src="demo/source/앱_시현.gif" />
 
 ## 설치 및 사용법
 
