@@ -16,6 +16,11 @@ It is designed to work with minimal setup:
 
 <img height="180" src="demo/source/app-home.png" alt="Main page preview" /> <img height="180" src="demo/source/app-demo.gif" alt="App demo" />
 
+Docs:
+
+- Korean README: [README_KO.md](README_KO.md)
+- Developer guide: [README_DEV.md](README_DEV.md)
+
 ## Supported Games
 
 - Wuthering Waves
@@ -32,7 +37,8 @@ See [GAME.md](GAME.md) for game-specific notes and limitations.
 subculture_tracker_X.X.X.zip
 ```
 
-3. Extract the archive and run `SCT.exe` on Windows, or `SCT` on other supported setups.
+3. Extract the archive and run `SCT.exe` on Windows.
+4. If you are running from source or do not have `pywebview` installed, use `python run.py -dev` to open the UI in your browser.
 
 ## How to Use
 
@@ -51,6 +57,8 @@ Examples:
 - `wuwa_<profilename>.json`
 - `endfield_<profilename>.json`
 - `web-setting.json`
+
+This project is currently Windows-focused. The normal desktop window relies on `pywebview`; `-dev` is the browser fallback.
 
 ## FAQ
 

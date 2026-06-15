@@ -69,9 +69,13 @@ python run.py -dev
 - `build-exe.ps1`
   - PyInstaller를 사용해 실행 파일을 생성하는 스크립트
 - `README.md`
-  - 최종 사용자용 설명서
-- `README_dev.md`
-  - 개발자용 문서
+  - 영문 최종 사용자용 설명서
+- `README_KO.md`
+  - 한국어 최종 사용자용 설명서
+- `README_DEV.md`
+  - 영문 개발자용 문서
+- `README_DEV_KO.md`
+  - 한국어 개발자용 문서
 
 ### 백엔드 패키지 (`backend/`)
 

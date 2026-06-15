@@ -70,8 +70,12 @@ With the `-dev` option, the UI opens in the default web browser instead of a web
   - Script for building the executable with PyInstaller
 - `README.md`
   - End-user documentation
-- `README_dev.md`
+- `README_KO.md`
+  - Korean end-user documentation
+- `README_DEV.md`
   - Developer documentation
+- `README_DEV_KO.md`
+  - Korean developer documentation
 
 ### Backend Package (`backend/`)
 
