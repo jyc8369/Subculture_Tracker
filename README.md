@@ -1,157 +1,124 @@
 # Subculture Tracker
+
 <picture>
- <source media="(prefers-color-scheme: dark)" 
-  srcset="demo/source/앱_아이콘검정색.webp"
-  height="240">
- <source media="(prefers-color-scheme: light)" 
-  srcset="demo/source/앱_아이콘검정색.webp"
-  height="240">
- <img alt="YOUR-ALT-TEXT" src="YOUR-DEFAULT-IMAGE">
+  <source media="(prefers-color-scheme: dark)" srcset="demo/source/app-icon-black.webp" height="240">
+  <source media="(prefers-color-scheme: light)" srcset="demo/source/app-icon-black.webp" height="240">
+  <img alt="Subculture Tracker" src="demo/source/app-icon-white.webp">
 </picture>
 
-게임을 플레이하면 가챠 결과를 자동으로 불러와 저장하며, 사용자는 프로그램 안에서 바로 기록을 확인할 수 있습니다.
-복잡한 설정이나 수동 입력 없이 실행만 하면 바로 사용할 수 있도록 제작되었습니다. 
-- 자동으로 원본 데이터를 추출하고, 공통 JSON 형식으로 저장
-- 웹 기반 인터페이스를 데스크톱 창에서 바로 실행
-- 게임을 킬 필요 없이 간편하게 기록을 불러오고 관리
+Subculture Tracker automatically collects gacha history from supported games, saves it in a shared JSON format, and lets you review the results in a desktop window.
 
-<img height="180" src="demo/source/앱_메인페이지.png" /> <img height="180" src="demo/source/앱_시현.gif" />
+It is designed to work with minimal setup:
 
-## 설치 및 사용법
+- Automatically extracts raw history data and converts it into a common JSON format
+- Runs the web interface in a desktop window
+- Lets you load and manage records without manually copying data
 
-1. [Releases](https://github.com/jyc8369/subculture_tracker/releases) 페이지에서 최신 버전을 선택합니다.
+<img height="180" src="demo/source/app-home.png" alt="Main page preview" /> <img height="180" src="demo/source/app-demo.gif" alt="App demo" />
 
-2. Assets 항목에서 아래와 같은 파일을 다운로드합니다.
+## Supported Games
+
+- Wuthering Waves
+- Arknights Endfield
+
+See [GAME.md](GAME.md) for game-specific notes and limitations.
+
+## Installation
+
+1. Open the [Releases](https://github.com/jyc8369/subculture_tracker/releases) page and download the latest release.
+2. Download the asset named like:
 
 ```txt
 subculture_tracker_X.X.X.zip
 ```
 
-3. 다운로드한 압축 파일을 해제한 뒤,  
-`SCT.exe` 또는 `SCT` 파일을 실행합니다.
+3. Extract the archive and run `SCT.exe` on Windows, or `SCT` on other supported setups.
 
-4. 조회할 게임을 실행한 뒤,  
-게임 내부에서 뽑기 기록 화면을 열어둡니다.
+## How to Use
 
-5. Subculture Tracker로 돌아와 실행 중인 게임 메뉴를 선택합니다.
+1. Launch the game you want to track.
+2. Open the in-game gacha history or record screen.
+3. Open Subculture Tracker and choose the running game.
+4. Click `setting`, enter your profile name, then click `Update/Create Data`.
+5. After the data is generated, use the `Select profile file` list at the bottom to load the saved records.
 
-6. `setting` 버튼을 클릭한 뒤 프로필 이름을 입력하고,  
-`데이터 업데이트/생성` 버튼을 클릭합니다.
+## Data Format
 
-7. 생성이 완료되면 하단의 `프로필 파일 선택` 목록에서  
-저장된 데이터를 불러올 수 있습니다.
+Results are stored locally on your PC as JSON files.
 
-[게임별 추가 정보](https://github.com/jyc8369/subculture_tracker/blob/main/game.md)
+Examples:
 
+- `wuwa_<profilename>.json`
+- `endfield_<profilename>.json`
+- `web-setting.json`
 
-## 질의응답
+## FAQ
 
 <details>
-<summary>정지 당하는거 아닌가요?</summary>
+<summary>Will this get me banned?</summary>
 
-Subculture Tracker는 게임 파일을 수정하거나 메모리를 조작하지 않습니다.
+Subculture Tracker does not modify game files or manipulate memory.
 
-게임이 저장한 기록(Log)에서 WebView 관련 정보를 읽어 데이터를 수집하는 방식으로 동작합니다.
+It works by reading WebView-related information from the game logs and using the same history page the game itself uses.
 
-현재 지원 중인 게임들은 공통적으로 WebView를 통해 기록 데이터를 표시하며,  
-게임 로그에는 WebView가 접속한 링크 정보가 포함되어 있습니다.
+Based on development testing, no account restrictions or warnings have been observed so far.
 
-프로그램은 해당 링크를 자동으로 찾아 접속한 뒤 필요한 데이터를 조회합니다.
-
-또한 실제 게임에서 사용하는 기록 조회 링크를 그대로 사용하기 때문에,  
-일반적인 사용만으로 제재 대상이 될 가능성은 낮다고 판단하고 있습니다.
-
-개발 과정에서 반복 요청 및 테스트도 진행했지만,  
-현재까지 계정 제한이나 경고 사례는 확인되지 않았습니다.
-
-다만 운영 정책은 언제든 변경될 수 있으며,  
-사용에 대한 책임은 사용자 본인에게 있습니다.
+That said, game policies can change at any time, and you are responsible for your own usage.
 
 </details>
 
 <details>
-<summary>원리가 뭔가요?</summary>
+<summary>How does it work?</summary>
 
-대부분의 게임은 뽑기 기록을 확인할 수 있는 기능을 제공합니다.
+Most supported games provide a way to view gacha history.
 
-일부 게임은 WebView를 사용하여 게임 내부에서 기록 화면을 표시합니다.
-
-게임은 실행 과정에서 다양한 기록(Log)을 저장하며,  
-이 안에는 WebView가 접속했던 링크 정보가 포함되기도 합니다.
-
-Subculture Tracker는 해당 기록에서 관련 링크를 자동으로 찾아 접속한 뒤,  
-필요한 데이터를 수집합니다.
-
-수집된 데이터는 프로그램 내부에서 보기 쉽게 정리되어 표시됩니다.
+Some of them display that history through an in-game WebView. The game logs include the WebView URL or related information, and Subculture Tracker automatically finds it, opens the record endpoint, and converts the results into a readable format.
 
 </details>
 
 <details>
-<summary>다른 게임도 지원할 예정인가요?</summary>
+<summary>Will more games be supported?</summary>
 
-추가 지원 계획은 있습니다.
-
-다만 게임별 시스템 구조와 용어가 모두 다르기 때문에,  
-직접 플레이하며 데이터를 분석하는 과정이 필요합니다.
-
-예를 들어:
-- 최고 등급 명칭
-- 뽑기 시스템 구조
-- 해금 조건
-- 로그 저장 방식
-
-등을 직접 확인해야 합니다.
-
-또한 일정 수준까지 진행해야 관련 기능이 해금되는 경우도 많아  
-지원까지 시간이 다소 필요합니다.
+Possibly. Each game has different systems, terminology, and storage behavior, so adding support requires manual analysis and testing.
 
 </details>
 
 <details>
-<summary>WebView를 사용하지 않는 게임은 지원이 불가능한가요?</summary>
+<summary>What if a game does not use WebView?</summary>
 
-현재 방식으로는 어렵습니다.
-
-가능한 구현 방법 중 하나는 게임 메모리를 직접 읽는 방식이지만,  
-이 경우 안티치트에 의해 계정 제재가 발생할 가능성이 있습니다.
-
-단순 기록 조회 목적의 프로그램에서  
-그 정도의 리스크를 감수하는 것은 적절하지 않다고 판단했습니다.
-
-따라서 현재는 지원 계획이 없습니다.
+The current approach depends on WebView-based history pages. Other methods, such as reading memory directly, would carry a much higher risk and are not planned at the moment.
 
 </details>
 
 <details>
-<summary>프로그램 오류가 발생했어요.</summary>
+<summary>I got an error.</summary>
 
-Github Issues에 제보해주시면 감사하겠습니다.
+Please report it on [GitHub Issues](https://github.com/jyc8369/subculture_tracker/issues) and include:
 
-제보 시 아래 내용을 함께 첨부해주세요.
-
-- 어떤 기능 사용 중 발생했는지
-- 오류 상황 설명
-- `lastlog.log` 파일
+- What you were trying to do
+- What happened
+- The `lastlog.log` file
 
 </details>
 
 <details>
-<summary>데이터는 어디에 저장되나요?</summary>
+<summary>Where is the data stored?</summary>
 
-수집된 데이터는 사용자 PC 내부에 저장됩니다.
-
-별도의 서버로 전송되지 않으며,
-프로그램 외부에서 데이터를 수집하거나 공유하지 않습니다.
+All collected data is stored locally on your machine. Nothing is uploaded to an external server by the app.
 
 </details>
 
 <details>
-<summary>게임 데이터를 추출하지 못했다고 나와요.</summary>
+<summary>It says the game data could not be extracted.</summary>
 
-아래 사항을 확인해주세요.
-- 뽑기 기록 화면을 열었는지
-- 일반적인 경로에 게임을 설치하였는지
+Check the following:
 
-대표적인 실패 원인
-- (일부게임에 해당)시간이 지나 URL 또는 토큰이 만료가 되었음 ([게임별 추가 정보](https://github.com/jyc8369/subculture_tracker/blob/main/game.md))
+- The in-game history screen is open
+- The game is installed in a standard location
+
+Common causes:
+
+- The URL or token expired over time for some games
+- See [GAME.md](GAME.md) for more details
+
 </details>

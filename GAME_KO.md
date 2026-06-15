@@ -15,11 +15,11 @@
 토큰 방식을 채택했습니다.  
 토큰의 유효기한은 영구(추정)   
 ```C:\Users\<USER>\AppData\Local\PlatformProcess\Cache\data_1```   
-<img width="480" height="" alt="엔드필드사용법안내1" src="demo\source\엔드필드_사용법안내1.png" /><br>
-<img width="480" height="" alt="엔드필드사용법안내2" src="demo\source\엔드필드_사용법안내2.png" /><br>
-<img width="480" height="" alt="엔드필드사용법안내3" src="demo\source\엔드필드_사용법안내3.png" /><br>
-<img width="480" height="" alt="엔드필드사용법안내4" src="demo\source\엔드필드_사용법안내4.png" /><br>
-<img width="480" height="" alt="엔드필드사용법안내5" src="demo\source\엔드필드_사용법안내5.png" />
+<img width="480" height="" alt="endfield guide 1" src="demo/source/endfield-guide-1.png" /><br>
+<img width="480" height="" alt="endfield guide 2" src="demo/source/endfield-guide-2.png" /><br>
+<img width="480" height="" alt="endfield guide 3" src="demo/source/endfield-guide-3.png" /><br>
+<img width="480" height="" alt="endfield guide 4" src="demo/source/endfield-guide-4.png" /><br>
+<img width="480" height="" alt="endfield guide 5" src="demo/source/endfield-guide-5.png" />
 
 # Wuthering Waves | 명조: 워더링 웨이브
 <a name="명조"></a>
@@ -33,6 +33,6 @@ URL의 유효기한은 약 30분 내외
 ```<Driveletter>:\Wuthering Waves\Wuthering Waves Game\Client\Saved\Logs\Client.log```   
 또는   
 ```Steam\steamapps\common\Wuthering Waves\Wuthering Waves Game\Client\Saved\Logs\Client.log```   
-<img width="480" height="" alt="명조사용법안내1" src="demo\source\명조_사용법안내1.png" /><br>
-<img width="480" height="" alt="명조사용법안내2" src="demo\source\명조_사용법안내2.png" /><br>
-<img width="480" height="" alt="명조사용법안내3" src="demo\source\명조_사용법안내3.png" />  
+<img width="480" height="" alt="wuwa guide 1" src="demo/source/wuwa-guide-1.png" /><br>
+<img width="480" height="" alt="wuwa guide 2" src="demo/source/wuwa-guide-2.png" /><br>
+<img width="480" height="" alt="wuwa guide 3" src="demo/source/wuwa-guide-3.png" />  
