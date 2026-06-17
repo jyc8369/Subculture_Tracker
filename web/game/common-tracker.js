@@ -1,5 +1,13 @@
 const commonGetEl = selector => document.querySelector(selector);
 const t = key => (window.i18n && typeof window.i18n.t === 'function' ? window.i18n.t(key) : key);
+const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '\'': '&#39;',
+  '"': '&quot;'
+}[char]));
+
 
 const replaceChildren = (element, children) => {
   element.textContent = '';
