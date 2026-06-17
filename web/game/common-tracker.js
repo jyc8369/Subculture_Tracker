@@ -9,6 +9,13 @@ const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
 }[char]));
 
 
+const replaceChildren = (element, children) => {
+  element.textContent = '';
+  children.forEach(child => element.appendChild(child));
+};
+
+const normalizeCssClassValue = value => String(value ?? '').replace(/[^a-zA-Z0-9_-]/g, '');
+
 const defaultSelectors = {
   profileNameInput: '#profile-name-input',
   fileDropdownToggle: '#file-dropdown-toggle',
@@ -115,6 +122,22 @@ const updateFileSelectionUI = config => {
   if (input) input.value = config.state.selectedFile || '';
 };
 
+const createFileListItem = (filename, config) => {
+  const item = document.createElement('div');
+  item.className = 'dropdown-item';
+  item.setAttribute('role', 'option');
+  item.dataset.filename = filename;
+  item.textContent = config.fileLabel(filename);
+  return item;
+};
+
+const createEmptyDropdownItem = () => {
+  const item = document.createElement('div');
+  item.className = 'dropdown-empty';
+  item.textContent = t('noFilesFound');
+  return item;
+};
+
 const populateFileList = (files, config) => {
   const dropdown = commonGetEl(config.selectors.fileDropdown);
   const dropdownLabel = commonGetEl(config.selectors.fileDropdownLabel);
@@ -123,11 +146,12 @@ const populateFileList = (files, config) => {
   if (!dropdown || !dropdownLabel) return;
 
   config.state.files = files;
-  dropdown.innerHTML = files.length
-    ? files.map(filename => `
-        <div class="dropdown-item" role="option" data-filename="${escapeHtml(filename)}">${escapeHtml(config.fileLabel(filename))}</div>
-      `).join('')
-    : `<div class="dropdown-empty">${escapeHtml(t('noFilesFound'))}</div>`;
+  replaceChildren(
+    dropdown,
+    files.length
+      ? files.map(filename => createFileListItem(filename, config))
+      : [createEmptyDropdownItem()]
+  );
 
   if (files.length > 0) {
     config.state.selectedFile = config.state.selectedFile || files[0];
@@ -387,12 +411,31 @@ const filterRowsByPoolType = (rows, poolType, banner) => {
   return rows;
 };
 
+const createRecordRow = (row, index) => {
+  const tableRow = document.createElement('tr');
+  const indexCell = document.createElement('td');
+  const nameCell = document.createElement('td');
+  const qualityCell = document.createElement('td');
+  const timeCell = document.createElement('td');
+
+  indexCell.textContent = index + 1;
+  nameCell.className = `record-name quality-${normalizeCssClassValue(row.qualityLevel)}`;
+  nameCell.textContent = row.name ?? '';
+  qualityCell.textContent = `${row.qualityLevel ?? ''}✦`;
+  timeCell.textContent = row.time ?? '';
+
+  tableRow.append(indexCell, nameCell, qualityCell, timeCell);
+  return tableRow;
+};
+
 const renderRecords = (rows, config) => {
   const tbody = commonGetEl(config.selectors.recordBody);
   const countSpan = commonGetEl(config.selectors.recordCount);
 
+  if (!tbody) return;
+
   config.state.searchInput = config.state.searchInput || commonGetEl(config.selectors.searchInput);
-  config.state.currentDisplayRows = rows;
+  config.state.currentDisplayRows = Array.isArray(rows) ? rows : [];
 
   const updateTable = () => {
     const query = config.state.searchInput
@@ -400,16 +443,7 @@ const renderRecords = (rows, config) => {
       : '';
     const displayRows = config.state.currentDisplayRows.filter(row => String(row.name || '').toLowerCase().includes(query));
 
-    tbody.innerHTML = displayRows
-      .map((row, index) => `
-        <tr>
-          <td>${index + 1}</td>
-          <td class="record-name quality-${escapeHtml(row.qualityLevel)}">${escapeHtml(row.name)}</td>
-          <td>${escapeHtml(row.qualityLevel)}✦</td>
-          <td>${escapeHtml(row.time)}</td>
-        </tr>
-      `)
-      .join('');
+    replaceChildren(tbody, displayRows.map((row, index) => createRecordRow(row, index)));
 
     if (countSpan) countSpan.textContent = displayRows.length;
   };
@@ -470,41 +504,59 @@ const attachSideRailHandlers = config => {
   });
 };
 
+const createBannerNote = (value, label) => {
+  const note = document.createElement('div');
+  const valueElement = document.createElement('p');
+  const labelElement = document.createElement('p');
+
+  note.className = 'banner-note';
+  valueElement.className = 'banner-note-value';
+  valueElement.textContent = value;
+  labelElement.className = 'banner-note-label';
+  labelElement.textContent = label;
+  note.append(valueElement, labelElement);
+  return note;
+};
+
+const createSideRailItem = (item, index, config) => {
+  const title = item.title || item.banner || `배너 ${index + 1}`;
+  const banner = item.banner || title;
+  const poolType = String(item.poolType || item.pool_type || index + 1);
+  const button = document.createElement('button');
+  const titleElement = document.createElement('span');
+  const noteGroup = document.createElement('div');
+  const { pityTop, pityNext } = getBannerPityCounts(config.state.allRows, banner, config);
+  const { topLabel, nextLabel } = getPityThresholds(config);
+
+  button.className = `side-rail-item${index === 0 ? ' active' : ''}`;
+  button.type = 'button';
+  button.dataset.banner = banner;
+  button.dataset.poolType = poolType;
+  titleElement.className = 'side-rail-item-title';
+  titleElement.textContent = title;
+  noteGroup.className = 'banner-note-group';
+  noteGroup.append(createBannerNote(pityTop, topLabel), createBannerNote(pityNext, nextLabel));
+  button.append(titleElement, noteGroup);
+  return button;
+};
+
+const createEmptySideRailItem = () => {
+  const item = document.createElement('div');
+  item.className = 'side-rail-empty';
+  item.textContent = '로드할 배너가 없습니다.';
+  return item;
+};
+
 const populateSideRailItems = (items, config) => {
   const list = commonGetEl(config.selectors.sideRailList);
   if (!list) return;
 
-  if (!Array.isArray(items) || items.length === 0) {
-    list.innerHTML = `<div class="side-rail-empty">${escapeHtml('로드할 배너가 없습니다.')}</div>`;
-    return;
-  }
-
-  list.innerHTML = items.map((item, index) => {
-    const title = item.title || item.banner || `배너 ${index + 1}`;
-    const banner = item.banner || title;
-    const poolType = String(item.poolType || item.pool_type || index + 1);
-    const safeTitle = escapeHtml(title);
-    const safeBanner = escapeHtml(banner);
-    const safePoolType = escapeHtml(poolType);
-    const activeClass = index === 0 ? ' active' : '';
-    const { pityTop, pityNext } = getBannerPityCounts(config.state.allRows, banner, config);
-    const { topLabel, nextLabel } = getPityThresholds(config);
-
-    return `
-      <button class="side-rail-item${activeClass}" type="button" data-banner="${safeBanner}" data-pool-type="${safePoolType}">
-        <span class="side-rail-item-title">${safeTitle}</span>
-        <div class="banner-note-group">
-          <div class="banner-note">
-            <p class="banner-note-value">${escapeHtml(pityTop)}</p>
-            <p class="banner-note-label">${escapeHtml(topLabel)}</p>
-          </div>
-          <div class="banner-note">
-            <p class="banner-note-value">${escapeHtml(pityNext)}</p>
-            <p class="banner-note-label">${escapeHtml(nextLabel)}</p>
-          </div>
-        </div>
-      </button>`;
-  }).join('');
+  replaceChildren(
+    list,
+    Array.isArray(items) && items.length > 0
+      ? items.map((item, index) => createSideRailItem(item, index, config))
+      : [createEmptySideRailItem()]
+  );
 };
 
 const refreshSideRailPity = config => {
