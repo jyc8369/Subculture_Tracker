@@ -1,5 +1,13 @@
 const commonGetEl = selector => document.querySelector(selector);
 const t = key => (window.i18n && typeof window.i18n.t === 'function' ? window.i18n.t(key) : key);
+const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '\'': '&#39;',
+  '"': '&quot;'
+}[char]));
+
 
 const defaultSelectors = {
   profileNameInput: '#profile-name-input',
@@ -117,9 +125,9 @@ const populateFileList = (files, config) => {
   config.state.files = files;
   dropdown.innerHTML = files.length
     ? files.map(filename => `
-        <div class="dropdown-item" role="option" data-filename="${filename}">${config.fileLabel(filename)}</div>
+        <div class="dropdown-item" role="option" data-filename="${escapeHtml(filename)}">${escapeHtml(config.fileLabel(filename))}</div>
       `).join('')
-    : `<div class="dropdown-empty">${t('noFilesFound')}</div>`;
+    : `<div class="dropdown-empty">${escapeHtml(t('noFilesFound'))}</div>`;
 
   if (files.length > 0) {
     config.state.selectedFile = config.state.selectedFile || files[0];
@@ -387,16 +395,18 @@ const renderRecords = (rows, config) => {
   config.state.currentDisplayRows = rows;
 
   const updateTable = () => {
-    const query = config.state.searchInput.value.trim().toLowerCase();
+    const query = config.state.searchInput
+      ? config.state.searchInput.value.trim().toLowerCase()
+      : '';
     const displayRows = config.state.currentDisplayRows.filter(row => String(row.name || '').toLowerCase().includes(query));
 
     tbody.innerHTML = displayRows
       .map((row, index) => `
         <tr>
           <td>${index + 1}</td>
-          <td class="record-name quality-${row.qualityLevel}">${row.name}</td>
-          <td>${row.qualityLevel}✦</td>
-          <td>${row.time}</td>
+          <td class="record-name quality-${escapeHtml(row.qualityLevel)}">${escapeHtml(row.name)}</td>
+          <td>${escapeHtml(row.qualityLevel)}✦</td>
+          <td>${escapeHtml(row.time)}</td>
         </tr>
       `)
       .join('');
@@ -465,7 +475,7 @@ const populateSideRailItems = (items, config) => {
   if (!list) return;
 
   if (!Array.isArray(items) || items.length === 0) {
-    list.innerHTML = '<div class="side-rail-empty">로드할 배너가 없습니다.</div>';
+    list.innerHTML = `<div class="side-rail-empty">${escapeHtml('로드할 배너가 없습니다.')}</div>`;
     return;
   }
 
@@ -473,21 +483,24 @@ const populateSideRailItems = (items, config) => {
     const title = item.title || item.banner || `배너 ${index + 1}`;
     const banner = item.banner || title;
     const poolType = String(item.poolType || item.pool_type || index + 1);
+    const safeTitle = escapeHtml(title);
+    const safeBanner = escapeHtml(banner);
+    const safePoolType = escapeHtml(poolType);
     const activeClass = index === 0 ? ' active' : '';
     const { pityTop, pityNext } = getBannerPityCounts(config.state.allRows, banner, config);
     const { topLabel, nextLabel } = getPityThresholds(config);
 
     return `
-      <button class="side-rail-item${activeClass}" type="button" data-banner="${banner}" data-pool-type="${poolType}">
-        <span class="side-rail-item-title">${title}</span>
+      <button class="side-rail-item${activeClass}" type="button" data-banner="${safeBanner}" data-pool-type="${safePoolType}">
+        <span class="side-rail-item-title">${safeTitle}</span>
         <div class="banner-note-group">
           <div class="banner-note">
-            <p class="banner-note-value">${pityTop}</p>
-            <p class="banner-note-label">${topLabel}</p>
+            <p class="banner-note-value">${escapeHtml(pityTop)}</p>
+            <p class="banner-note-label">${escapeHtml(topLabel)}</p>
           </div>
           <div class="banner-note">
-            <p class="banner-note-value">${pityNext}</p>
-            <p class="banner-note-label">${nextLabel}</p>
+            <p class="banner-note-value">${escapeHtml(pityNext)}</p>
+            <p class="banner-note-label">${escapeHtml(nextLabel)}</p>
           </div>
         </div>
       </button>`;
