@@ -1,5 +1,7 @@
 # Subculture Tracker Development Guide
 
+[English](README_DEV.md) | [한국어](README_DEV_KO.md)
+
 This document explains the development environment, project structure, how to run the app, and the internal behavior of Subculture Tracker.
 
 ## Overview
