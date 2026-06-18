@@ -1,5 +1,8 @@
 # Subculture Tracker
 
+> Combined Markdown index: [RAEDME.md](RAEDME.md)
+
+
 [English](README.md) | [한국어](README_KO.md)
 
 Subculture Tracker는 지원되는 게임의 가챠 기록을 모아서 보여 주는 도구입니다.

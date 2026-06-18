@@ -1,4 +1,7 @@
 # 공통
+
+> Combined Markdown index: [RAEDME.md](RAEDME.md)
+
 **각 게임별 최하단의 이미지처럼 뽑기 기록창을 열어야지 정상적으로 작동합니다.**
 
 # 목차

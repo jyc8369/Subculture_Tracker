@@ -1,5 +1,8 @@
 # Common
 
+> Combined Markdown index: [RAEDME.md](RAEDME.md)
+
+
 Each game requires its in-game gacha history screen to be open, just like the images shown below, for the tracker to work correctly.
 
 # Contents

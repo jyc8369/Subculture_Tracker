@@ -1,5 +1,8 @@
 # Subculture Tracker
 
+> Combined Markdown index: [RAEDME.md](RAEDME.md)
+
+
 [English](README.md) | [한국어](README_KO.md)
 
 Subculture Tracker helps you collect and view gacha history from supported games.
